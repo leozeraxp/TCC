@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Criação de Cartão</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<link type="text/css" rel="stylesheet"
+	href="/materialize/css/materialize.min.css" media="screen,projection" />
+<link type="text/css" rel="stylesheet"
+	href="/materialize/css/materialize.css" media="screen,projection" />
+<style type="text/css">
+
+form input[type=submit]{
+	color: white;
+}
+</style>
+</head>
+<body>
+	<h3>TCC</h3>
+	<h5>Criação de cartão</h5>
+	
+	
+	<div class="row">
+	<br/>
+		<div th:each = "m : ${msg}">
+			<span th:text= ${m}></span>
+		</div>
+	<br/>
+		<form action="criarcartao" id="formcartao" method="post"
+			th:object=${usuarioobj} class="col s12">
+			<div class="row">
+				<div class="input-fiel col s12">
+					<label for="descricao" class="active">Descrição</label>
+					<textarea name="descricao" th:field="*{descricao}" id="descricao"></textarea>
+				</div>
+			</div>
+
+			<h4>Insira suas redes sociais</h4>
+			
+			<div class="row">
+				<div class="input-field col s12">
+					<label for="sobre" class="active">O que é essa URL?</label>
+					 <input name="sobre" th:field="*{sobre}" id="sobre" class="validate">
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="input-field col s12">
+					<label for="email" class="active">Inserir URL</label>
+					 <input name="email" type="email" th:field="*{url}" id="email" class="validate">
+				</div>
+			</div>
+			
+			<!-- Aqui vão ficar as categorias assim que eu pensar como eu vou fazer essa merda -->
+			<div>
+			
+			</div>
+			
+			
+
+			<div class="row">
+				<div class="input-field col s6">
+					<input type="submit" value="Criar Novo Cartão"
+						class="waves-effect waves-light btn">
+				</div>
+			</div>
+
+		</form>
+	</div>
+	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+</body>
+</html>
