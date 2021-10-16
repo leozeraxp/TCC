@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Criação de Cartão</title>
+
+</style>
+</head>
+<body>
+	<h3>TCC</h3>
+	<h5>Criação de cartão</h5>
+	<div class="row">
+	<br/>
+	<!-- 
+		<div th:each = "m : ${msg}">
+			<span th:text= ${m}></span>
+		</div>  -->
+		
+	<br/>
+		<form th:action="@{/criarcartao}" id="formcartao" method="post"
+			th:object=${cartaoobj} class="col s12">
+			<div class="row">
+			
+				<div class="input-fiel col s12">
+					<label class="active"><span th:text="${session.usuarioLogado.nome}"></span></label>
+				</div> 
+				<div >
+					<label for="descricao" class="active">Descrição</label>
+					<textarea name="descricao" th:field="*{descricao}" id="descricao"></textarea>
+				</div>
+			</div>
+			
+			
+			<h4>Insira suas redes sociais</h4>
+			<table>
+			<thead>
+				<tr>
+					<th>O que é essa URL?</th>
+					<th>Inserir URL</th>
+					<th>
+						<button type="submit" name="addRow" th:text="#{cartao.link.add}">Add row</button>
+					</th>
+				</tr>
+				
+			</thead>
+				<tr th:each="link, itemStat : *{links}">
+				<td><input th:field="*{links[__${itemStat.index}__].sobre}" id="sobre"/></td>
+				<td><input th:field="*{links[__${itemStat.index}__].url}" id="url"/></td>
+				</tr>
+			</table>
+			
+			<!-- 
+			<a th:action="@{/addLink}" id="click" type="button">Adicionar Link</a>
+			Aqui vão ficar as categorias assim que eu pensar como eu vou fazer 
+			<div>-->
+			
+		
+		
+		 <h4>Escolha as categorias</h4>
+		 <div th:each="c : ${carregarCategorias}">
+			<label for="check">
+			<input type="checkbox" th:value="${c.id}" th:field="*{categorias}" class="validate" id="check">
+				<span th:text="${c.nome}"></span>
+			</label>
+		</div> 
+			<div class="row">
+				<div class="input-field col s6">
+					<input type="submit" value="Criar Novo Cartão"
+						class="waves-effect waves-light btn">
+				</div>
+			</div>
+
+		</form>
+	</div>
+	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+</body>
+</html>

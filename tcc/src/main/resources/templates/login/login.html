@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>TCC - Login</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<link type="text/css" rel="stylesheet"
+	href="/materialize/css/materialize.min.css" media="screen,projection" />
+<link type="text/css" rel="stylesheet"
+	href="/materialize/css/materialize.css" media="screen,projection" />
+<style type="text/css">
+
+form input[type=submit]{
+	color: white;
+}
+</style>
+</head>
+<body>
+	<div class="Login-Form">
+		<h1>Página de Login</h1>
+		
+		<form method="post" action="/login" th:object="${usuario}">
+			<div class = "alert alert-danger" role="alert" th:if="${msg}">
+				<strong th:text="${msg}"></strong>
+			</div>
+		
+			<div class="form-group">
+				<input class="form-control" type="text" th:field="*{utilizador}" placeholder="username">
+			</div>
+			
+			<div class="form-group">
+				<input class="form-control" type="password" th:field="*{senha}" placeholder="senha">
+			</div>
+			
+			<div class="cadastro">
+				<a th:href="@{cadastrousuario}">Ainda não é cadastrado? Clique aqui!</a>
+			</div>
+			
+			<button type="submit" class="waves-effect waves-light btn">Login</button>
+			<button type="button" class="waves-effect waves-light btn">Voltar</button>
+		</form>
+		</div>
+
+	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+</body>
+</html>
