@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
+<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.css"  media="screen,projection"/>
+<title>Perfil do Usuário</title>
+</head>
+<body>
+	<p>Seja bem vindo <label class="active"><span th:text="${session.usuarioLogado.nome}"></span></label></p>
+	<div th:each="c : ${cartoes}">
+		<span th:text="${c.id}"></span>
+		<span th:text="${c.titulo}"></span>
+	</div> 
+</body>
+	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+</html>

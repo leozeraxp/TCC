@@ -6,7 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
+
 
 @Entity
 public class Categoria implements Serializable {
@@ -18,9 +19,6 @@ public class Categoria implements Serializable {
 	
 	private String nome;
 	
-	@ManyToOne
-	private Cartao cartao;
-
 	public Long getId() {
 		return id;
 	}
@@ -35,13 +33,5 @@ public class Categoria implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public Cartao getCartao() {
-		return cartao;
-	}
-
-	public void setCartao(Cartao cartao) {
-		this.cartao = cartao;
 	}
 }

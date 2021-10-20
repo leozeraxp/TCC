@@ -3,6 +3,7 @@ package springboot.tcc.controller;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -12,11 +13,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import springboot.tcc.util.Util;
+import springboot.tcc.model.Cartao;
 import springboot.tcc.model.Usuario;
+import springboot.tcc.repository.CartaoRepository;
 import springboot.tcc.service.ServiceExcep;
 //import springboot.tcc.repository.UsuarioRepository;
 import springboot.tcc.service.ServiceUsuario;
@@ -27,9 +32,12 @@ public class UsuarioController {
 	private UsuarioRepository usuarioRepository;*/
 	
 	@Autowired
+	private CartaoRepository cartaoRepository;
+	
+	@Autowired
 	private ServiceUsuario serviceUsuario;
 	
-	@GetMapping("index")
+	@GetMapping("/index")
 	public ModelAndView index() {
 		ModelAndView andView = new ModelAndView();
 		andView.setViewName("index");
@@ -39,14 +47,14 @@ public class UsuarioController {
 	
 	@GetMapping("/cadastrousuario")
 	public ModelAndView cadastroUsuario() {
-		ModelAndView andView = new ModelAndView("cadastro/cadastrousuario");
+		ModelAndView andView = new ModelAndView("usuario/cadastrousuario");
 		andView.addObject("usuarioobj", new Usuario());
 		return andView;
 	}
 	
 	@PostMapping("**/salvarusuario")
 	public ModelAndView salvar(@Valid Usuario usuario, BindingResult bindingResult) throws Exception {
-		ModelAndView andView = new ModelAndView("cadastro/cadastrousuario");
+		ModelAndView andView = new ModelAndView("usuario/cadastrousuario");
 		if(bindingResult.hasErrors()) {
 			andView.addObject("usuarioobj", new Usuario());
 			
@@ -60,7 +68,7 @@ public class UsuarioController {
 		}else {		
 		serviceUsuario.salvarUsuario(usuario);
 		
-		andView.setViewName("redirect:/login");
+		andView.setViewName("redirect:/logar");
 		return andView;
 		}
 	}
@@ -97,4 +105,12 @@ public class UsuarioController {
 		return logar();
 	}
 	
+	@GetMapping("/exibirperfil/{idusuario}")
+	public ModelAndView perfilUsuario(@PathVariable("idusuario") Long idusuario) {
+		//Optional<Cartao> cartao = cartaoRepository.findById(idusuario);
+		System.out.println(idusuario);
+		ModelAndView andView = new ModelAndView("usuario/exibirperfil");
+		andView.addObject("cartoes", cartaoRepository.findCartaoById(idusuario));
+		return andView;
+	}
 }

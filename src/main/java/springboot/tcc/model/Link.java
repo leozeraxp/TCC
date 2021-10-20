@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Link implements Serializable{
@@ -20,7 +18,7 @@ public class Link implements Serializable{
 	private String url;
 	
 	private String sobre;
-	
+
 	public String getSobre() {
 		return sobre;
 	}
@@ -28,9 +26,6 @@ public class Link implements Serializable{
 	public void setSobre(String sobre) {
 		this.sobre = sobre;
 	}
-
-	@ManyToOne 
-	private Cartao cartao;
 
 	public long getId() {
 		return id;
@@ -46,13 +41,5 @@ public class Link implements Serializable{
 
 	public void setUrl(String url) {
 		this.url = url;
-	}
-
-	public Cartao getCartao() {
-		return cartao;
-	}
-
-	public void setCartao(Cartao cartao) {
-		this.cartao = cartao;
 	}
 }

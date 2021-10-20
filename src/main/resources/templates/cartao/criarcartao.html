@@ -4,66 +4,69 @@
 <head>
 <meta charset="UTF-8">
 <title>Criação de Cartão</title>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet">
-<link type="text/css" rel="stylesheet"
-	href="/materialize/css/materialize.min.css" media="screen,projection" />
-<link type="text/css" rel="stylesheet"
-	href="/materialize/css/materialize.css" media="screen,projection" />
-<style type="text/css">
 
-form input[type=submit]{
-	color: white;
-}
 </style>
 </head>
 <body>
 	<h3>TCC</h3>
 	<h5>Criação de cartão</h5>
-	
-	
 	<div class="row">
 	<br/>
+	<!-- 
 		<div th:each = "m : ${msg}">
 			<span th:text= ${m}></span>
-		</div>
+		</div>  -->
+		
 	<br/>
-		<form action="criarcartao" id="formcartao" method="post"
-			th:object=${usuarioobj} class="col s12">
+		<form th:action="@{/cc/criarcartao}" id="formcartao" method="post"
+			th:object=${cartao} class="col s12">
 			<div class="row">
+				<input name="usuarioid" th:value="${session.usuarioLogado.id}" type="hidden">
 				<div class="input-fiel col s12">
+					<label class="active"><span th:text="${session.usuarioLogado.nome}"></span></label>
+				</div> 
+				<div >
 					<label for="descricao" class="active">Descrição</label>
 					<textarea name="descricao" th:field="*{descricao}" id="descricao"></textarea>
 				</div>
 			</div>
-
+			
+			
 			<h4>Insira suas redes sociais</h4>
+			<table>
+			<thead>
+				<tr>
+					<th>O que é essa URL?</th>
+					<th>Inserir URL</th>
+					<th>
+						<button type="submit" name="addOption">Add Option</button>
+					</th>
+				</tr>
+				
+			</thead>
+				<tr th:each="link, itemStat : *{links}">
+				<td><input th:field="*{links[__${itemStat.index}__].sobre}" id="sobre"/></td>
+				<td><input th:field="*{links[__${itemStat.index}__].url}" id="url"/></td>
+				</tr>
+			</table>
 			
-			<div class="row">
-				<div class="input-field col s12">
-					<label for="sobre" class="active">O que é essa URL?</label>
-					 <input name="sobre" th:field="*{sobre}" id="sobre" class="validate">
-				</div>
-			</div>
+			<!-- 
+			<a th:action="@{/addLink}" id="click" type="button">Adicionar Link</a>
+			Aqui vão ficar as categorias assim que eu pensar como eu vou fazer 
+			<div>-->
 			
-			<div class="row">
-				<div class="input-field col s12">
-					<label for="email" class="active">Inserir URL</label>
-					 <input name="email" type="email" th:field="*{url}" id="email" class="validate">
-				</div>
-			</div>
-			
-			<!-- Aqui vão ficar as categorias assim que eu pensar como eu vou fazer essa merda -->
-			<div>
-			
-			</div>
-			
-			
-
+		
+		
+		 <h4>Escolha as categorias</h4>
+		 <div th:each="c : ${allCategorias}">
+			<label for="check">
+			<input type="checkbox" th:value="${c.id}" th:field="*{categorias}" class="validate" id="check">
+				<span th:text="${c.nome}"></span>
+			</label>
+		</div> 
 			<div class="row">
 				<div class="input-field col s6">
-					<input type="submit" value="Criar Novo Cartão"
-						class="waves-effect waves-light btn">
+					<button type="submit" name="salvar/{usuarioid}(usuarioid=${session.usuarioLogado.id})">Criar Novo Cartão</button>
 				</div>
 			</div>
 

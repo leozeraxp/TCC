@@ -1,14 +1,17 @@
 package springboot.tcc.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
 
 @Entity
 public class Cartao implements Serializable {
@@ -21,13 +24,55 @@ public class Cartao implements Serializable {
 	@ManyToOne
 	private Usuario usuario;
 	
+	private String titulo;
+	
 	private String descricao;
 	
-	@OneToMany(mappedBy = "cartao", orphanRemoval = true, cascade = CascadeType.ALL)
-	private Categoria categoria;
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<Categoria> categorias = new ArrayList<Categoria>();
 	
-	@OneToMany(mappedBy = "cartao", orphanRemoval = true, cascade = CascadeType.ALL)
-	private Link link;
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<Link> links = new ArrayList<Link>() ;
+	
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+	
+	public String getTitulo() {
+		return titulo;
+	}
+
+
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+
+
+	public void addLink(Link link) {
+        this.links.add(link);
+    }
+	
+	public void addCategoria(Categoria categoria) {
+        this.categorias.add(categoria);
+    }
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+
+
+
+	public List<Link> getLinks() {
+		return links;
+	}
+
+
+	public void setLinks(List<Link> links) {
+		this.links = links;
+	}
+
 
 	public Long getId() {
 		return id;
